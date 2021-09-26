@@ -74,5 +74,18 @@ public class SpecializationController {
 		return "redirect:all";
 		
 	}
+	
+	/**
+	 * Fetech Data into Edit Page
+	 */
+	@GetMapping("/edit")
+	public String showEditPage(
+			@RequestParam Long id,Model model
+			)
+	{
+		Specialization spec=service.getOneSpecializationById(id);
+		model.addAttribute("specialization",spec);
+		return "SpecializationEdit";
+	}
 
 }	

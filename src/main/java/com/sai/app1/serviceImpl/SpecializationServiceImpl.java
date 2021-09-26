@@ -41,5 +41,10 @@ public class SpecializationServiceImpl implements ISpecializationService {
 		repo.deleteById(id);
 
 	}
+	@Override
+	public void updateSpecialization(Specialization spec) {
+		repo.save(spec);
+		
+	}
 
 }

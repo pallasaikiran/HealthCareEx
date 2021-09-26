@@ -13,4 +13,6 @@ public interface ISpecializationService {
 	public Specialization getOneSpecializationById(Long id);
 	
 	public void removeSpecialization(Long id);
+	
+	public void updateSpecialization(Specialization spec);
 }
