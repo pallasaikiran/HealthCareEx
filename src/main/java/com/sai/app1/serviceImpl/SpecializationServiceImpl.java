@@ -1,6 +1,7 @@
 package com.sai.app1.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,11 @@ public class SpecializationServiceImpl implements ISpecializationService {
 
 	@Override
 	public Specialization getOneSpecializationById(Long id) {
+		/*
+		 * Optional<Specialization> optional=repo.findById(id); if(optional.isPresent())
+		 * { return optional.get(); }else { throw new
+		 * SpecializationNotFoundException(id+"Not Found"); }
+		 */
 		
 		return repo.findById(id).orElseThrow(
 				()-> new SpecializationNotFoundException(id+ " Not Found")
@@ -38,8 +44,8 @@ public class SpecializationServiceImpl implements ISpecializationService {
 
 	@Override
 	public void removeSpecialization(Long id) {
-		repo.deleteById(id);
-
+		//repo.deleteById(id);
+		repo.delete(getOneSpecializationById(id));
 	}
 	@Override
 	public void updateSpecialization(Specialization spec) {
