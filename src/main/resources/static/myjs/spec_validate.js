@@ -28,10 +28,26 @@ $(document).ready(function(){
                     }
                     
                     else{
-                        $("#specCodeError").hide();
-                        specCodeError=true;
+                       $.ajax({
+								url:'checkCode',
+								data:{"code":val},
+							    success:function(respTxt)
+							    {
+									if(respTxt!='')
+									{
+										  $("#specCodeError").show();
+                       					  $("#specCodeError").html(respTxt);
+                       					  $("#specCodeError").css('color','red');
+                       					  specCodeError=false;  
+									}
+									else
+									{
+										$("#specCodeError").hide();
+										specCodeError=true; 
+									}
+								}		
+					});
                     }
-
                     return  specCodeError;
                 }
                 //spec Name validation
@@ -51,8 +67,23 @@ $(document).ready(function(){
                         $("#specNameError").css('color','red');
                     }
                     else{
-                        $("#specNameError").hide();
-                        specNameError=true;
+                       $.ajax({
+								url:'checkName',
+								data:{"name":val},
+								success:function(resTxt){
+									if(resTxt!='')
+									{
+										 $("#specNameError").show();
+                       					 $("#specNameError").html(resTxt);
+                      					 $("#specNameError").css('color','red'); 
+										 specNameError=false; 
+									}else
+									{
+										$("#specNameError").hide();
+                        				specNameError=true;
+									}
+								}
+						})
                     }
                     return specNameError;
                 }

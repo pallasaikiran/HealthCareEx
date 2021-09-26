@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sai.app1.entity.Specialization;
@@ -101,5 +103,42 @@ public class SpecializationController {
 		attributes.addAttribute("message","Record ("+specialization.getId()+") is updated");
 		return "redirect:all";
 	}
-
-}	
+	
+	/**
+	 * Read specCode and check with Service
+	 * Return message back to UI
+	 */
+	@GetMapping("/checkCode")
+	@ResponseBody
+	public String validateSpecCode(
+			@RequestParam String code
+			)
+	{
+		String message="";
+		
+		if(service.isSpecCodeExist(code))
+		{
+			message=code+",Already exist";
+		}
+		return message;
+		
+	}
+	
+	/**
+	 * Read Name and check with Service
+	 * Return message back to UI
+	 */
+	@GetMapping("/checkName")
+	@ResponseBody
+	public String validateSpecName(
+				@RequestParam String name
+			)
+	{
+		String message="";
+		if(service.isSpecNameExist(name))
+		{
+			message=name+",Already exist";
+		}
+		return message;
+	}
+}
