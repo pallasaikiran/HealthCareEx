@@ -1,5 +1,4 @@
-
-<html xmlns:th="https://www.thymeleaf.org/">
+<html>
     <head>
         <link
       rel="stylesheet"
@@ -16,28 +15,30 @@
         <div class="container">
             <div class="card">
                 <div class="card-header bg-primary text-white text-center">
-                    <h3>Specialization Data</h3>
+                    <h3>Doctor Data</h3>
                 </div>
                 <div class="card-body">
-                	<a th:href="@{/spec/excel}" class="btn btn-success" >Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                     <table class="table table-hover">
-                        <tr>
-                            <th>ID</th>
-                            <th>CODE</th>
+                        <tr class="bg-info text-white">
+                           
                             <th>NAME</th>
+                            <th>EMAIL</th>
+                            <th>ADDRESS</th>
+                            <th>MOBILE</th>
                             <th>NOTE</th>
                             <th>OPERATION</th>
                         </tr>
                         <tr th:each="ob:${list}">
-                    	<td th:text="${ob.id}"></td>
-                    	<td th:text="${ob.specCode}"></td>
-                    	<td th:text="${ob.specName}"></td>
-                    	<td th:text="${ob.specNote}"></td>
+                        <td>[[${ob.firstName + ' ' +ob.lastName}]]</td>
+                    	<td th:text="${ob.email}"></td>
+                    	<td th:text="${ob.address}"></td>
+                    	<td th:text="${ob.mobile}"></td>
+                    	<td th:text="${ob.note}"></td>
                     	<td>
-                    		<a th:href="@{/spec/delete(id=${ob.id})}" class="btn btn-danger">DELETE <i class="fa fa-trash-o" aria-hidden="true"></i> </a> | 
-                    		<a th:href="@{/spec/edit(id=${ob.id})}" class="btn btn-warning">EDIT <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    		<a th:href="@{/doctor/delete(id=${ob.id})}" class="btn btn-danger">DELETE <i class="fa fa-trash-o" aria-hidden="true"></i> </a> | 
+                    		<a th:href="@{/doctor/edit(id=${ob.id})}" class="btn btn-warning">EDIT <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     	</td>
-                    </tr>
+                        
                     </table>
                 </div>
                 <div class="card-footer bg-white text-success text-center" th:if="${message!=null}">

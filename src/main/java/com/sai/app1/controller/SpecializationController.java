@@ -8,15 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sai.app1.entity.Specialization;
 import com.sai.app1.exception.SpecializationNotFoundException;
 import com.sai.app1.service.ISpecializationService;
+import com.sai.app1.view.SpecializationExcelView;
 
 @Controller
 
@@ -166,5 +167,22 @@ public class SpecializationController {
 			message=name+",Already exist";
 		}
 		return message;
+	}
+	
+	/**
+	 * Export data excel file
+	 */
+	@GetMapping("/excel")
+	public ModelAndView exportToExcel()
+	{
+		ModelAndView m=new ModelAndView();
+		m.setView(new SpecializationExcelView());
+		
+		//read data from DB
+		List<Specialization> list=service.getAllSpecializations();
+		//send to Excel Impl class
+		m.addObject("list",list);
+		return m;
+		
 	}
 }

@@ -28,6 +28,12 @@ $(document).ready(function(){
                     }
                     
                     else{
+						
+						var id=0;//for register
+						if($("#id").val()!=undefined){//edit page
+							specCodeError=true;
+							id=$("#id").val();
+						}
                        $.ajax({
 								url:'checkCode',
 								data:{"code":val},
