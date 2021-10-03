@@ -1,6 +1,7 @@
 package com.sai.app1.serviceImpl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,14 @@ import com.sai.app1.entity.Specialization;
 import com.sai.app1.exception.SpecializationNotFoundException;
 import com.sai.app1.repository.SpecializationRepository;
 import com.sai.app1.service.ISpecializationService;
+import com.sai.app1.util.MyCollectionsUtil;
 
 @Service
 public class SpecializationServiceImpl implements ISpecializationService {
 
 	@Autowired
 	private SpecializationRepository repo;
+	
 	
 	@Override
 	public Long saveSpecialization(Specialization specialization) {
@@ -71,4 +74,10 @@ public class SpecializationServiceImpl implements ISpecializationService {
 		return false;
 	}
 	
+	@Override
+	public Map<Long, String> getSpecIdAndName() {
+		List<Object[]> list=repo.getSpecIdAndName();
+		Map<Long,String> map=MyCollectionsUtil.convertToMap(list);
+		return map;
+	}
 }

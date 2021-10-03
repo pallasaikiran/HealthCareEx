@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sai.app1.entity.Doctor;
 import com.sai.app1.exception.DoctorNotFoundException;
 import com.sai.app1.service.IDoctorService;
+import com.sai.app1.service.ISpecializationService;
 
 @Controller
 @RequestMapping("/doctor")
@@ -22,6 +23,9 @@ public class DoctorController {
 	
 	@Autowired
 	private IDoctorService service;
+	
+	@Autowired
+	private ISpecializationService specializationService;
 	
 	//1.show register page
 	
@@ -32,6 +36,7 @@ public class DoctorController {
 			)
 	{
 		model.addAttribute("message",message);
+		createDynamicUi(model);
 		return "DoctorRegister";
 	}
 	
@@ -92,6 +97,7 @@ public class DoctorController {
 		String page=null;
 		try {
 			Doctor doctor=service.getOneDoctorById(id);
+			createDynamicUi(model);
 			model.addAttribute("doctor",doctor);
 			page="DoctorEdit";
 			
@@ -118,5 +124,11 @@ public class DoctorController {
 		return "redirect:all";
 	}
 	
+	//Dynamic UI Specializations
+	private void createDynamicUi(Model model)
+	{
+		model.addAttribute("specializations",specializationService.getSpecIdAndName());
+		
+	}
 	
 }
